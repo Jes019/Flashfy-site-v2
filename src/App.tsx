@@ -679,7 +679,7 @@ export default function App() {
                 <input type="number" name="quantity" placeholder="Quantity" className="border p-2 rounded" required />
                 <input type="text" name="destination" placeholder="Destination country" className="border p-2 rounded" required />
                 <textarea name="details" placeholder="Details (sizes/grade, docs needed)" className="border p-2 rounded" rows={4}></textarea>
-                <p className="text-xs text-gray-600">We reply within 1 business day with pricing and lead time.</p>
+                <p className="text-xs text-gray-600">We try to reply as soon as our suppliers give us the pricing and lead time.</p>
                 <button type="submit" className="bg-sky-600 text-white py-2 rounded">
                   Submit
                 </button>
