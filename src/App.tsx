@@ -8,24 +8,6 @@ import { Menu, X, ChevronDown, CheckCircle } from "lucide-react";
  *   filters.webp, lights.webp, gauges.webp, actuators.webp, smart.webp, property.webp
  *   (plus optional galleries like filters-1.webp … filters-5.webp, etc.)
  *******************/
-// Set initial state from hash (supports direct links/bookmarks)
-useEffect(() => {
-  const initial = (location.hash || "#home").slice(1) || "home";
-  setPage(initial);
-  if (!location.hash) window.history.replaceState({ page: initial }, "", `#${initial}`);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
-// Handle browser Back/Forward
-useEffect(() => {
-  const syncFromHash = () => {
-    const target = (location.hash || "#home").slice(1) || "home";
-    setPage(target);
-  };
-  syncFromHash();                        // set initial page
-  window.addEventListener("hashchange", syncFromHash);
-  return () => window.removeEventListener("hashchange", syncFromHash);
-}, []);
 
 
 /* ---------- Content blocks (short) ---------- */
@@ -239,6 +221,24 @@ export default function App() {
   const [formStatus, setFormStatus] = useState<null | "success" | "error">(null);
   const [toast, setToast] = useState<string>("");
   const [prefillProduct, setPrefillProduct] = useState<string>("");
+
+  useEffect(() => {
+  const syncFromHash = () => {
+    const target = (location.hash || "#home").slice(1) || "home";
+    setPage(target);
+  };
+
+  // On first load: ensure we’re on a hash route but
+  // do NOT create an extra history entry (prevents about:blank on first Back)
+  if (!location.hash) {
+    location.replace("#home");  // replaces current entry, no extra "back" step
+  }
+  syncFromHash();
+
+  window.addEventListener("hashchange", syncFromHash);
+  return () => window.removeEventListener("hashchange", syncFromHash);
+}, []);
+
 
   // Text blocks
   const filtersText = asText(T.filters);
