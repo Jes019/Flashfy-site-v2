@@ -8,6 +8,29 @@ import { Menu, X, ChevronDown, CheckCircle } from "lucide-react";
  *   filters.webp, lights.webp, gauges.webp, actuators.webp, smart.webp, property.webp
  *   (plus optional galleries like filters-1.webp … filters-5.webp, etc.)
  *******************/
+// Set initial state from hash (supports direct links/bookmarks)
+useEffect(() => {
+  const initial = (location.hash || "#home").slice(1) || "home";
+  setPage(initial);
+  if (!location.hash) window.history.replaceState({ page: initial }, "", `#${initial}`);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
+// Handle browser Back/Forward
+useEffect(() => {
+  const onPopOrHash = () => {
+    const target = (location.hash || "#home").slice(1) || "home";
+    setPage(target);
+    setShopOpen(false);
+    window.scrollTo(0, 0);
+  };
+  window.addEventListener("popstate", onPopOrHash);
+  window.addEventListener("hashchange", onPopOrHash);
+  return () => {
+    window.removeEventListener("popstate", onPopOrHash);
+    window.removeEventListener("hashchange", onPopOrHash);
+  };
+}, []);
 
 /* ---------- Content blocks (short) ---------- */
 const T = {
@@ -240,9 +263,13 @@ export default function App() {
   const pageMeta = page === "home" ? META.home : META.default;
 
   const handleNav = (target: string) => {
-    setPage(target);
-    window.scrollTo(0, 0);
-  };
+  if (page === target) return;
+  setPage(target);
+  window.history.pushState({ page: target }, "", `#${target}`); // keep URL history
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  setShopOpen(false);
+};
+
   const openQuote = (prefill?: string) => {
     setPrefillProduct(prefill || "");
     setDrawerOpen(true);
