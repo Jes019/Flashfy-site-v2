@@ -18,19 +18,15 @@ useEffect(() => {
 
 // Handle browser Back/Forward
 useEffect(() => {
-  const onPopOrHash = () => {
+  const syncFromHash = () => {
     const target = (location.hash || "#home").slice(1) || "home";
     setPage(target);
-    setShopOpen(false);
-    window.scrollTo(0, 0);
   };
-  window.addEventListener("popstate", onPopOrHash);
-  window.addEventListener("hashchange", onPopOrHash);
-  return () => {
-    window.removeEventListener("popstate", onPopOrHash);
-    window.removeEventListener("hashchange", onPopOrHash);
-  };
+  syncFromHash();                        // set initial page
+  window.addEventListener("hashchange", syncFromHash);
+  return () => window.removeEventListener("hashchange", syncFromHash);
 }, []);
+
 
 /* ---------- Content blocks (short) ---------- */
 const T = {
@@ -262,13 +258,14 @@ export default function App() {
   // Derived per-page meta (home only here)
   const pageMeta = page === "home" ? META.home : META.default;
 
-  const handleNav = (target: string) => {
-  if (page === target) return;
-  setPage(target);
-  window.history.pushState({ page: target }, "", `#${target}`); // keep URL history
-  window.scrollTo({ top: 0, behavior: "smooth" });
+ const handleNav = (target: string) => {
+  const nextHash = `#${target}`;
+  if (location.hash === nextHash) return;
+  location.hash = target;                // triggers the hashchange event
   setShopOpen(false);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
 
   const openQuote = (prefill?: string) => {
     setPrefillProduct(prefill || "");
