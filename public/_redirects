@@ -1,3 +1,9 @@
 /sitemap.xml   /sitemap.xml   200
 /robots.txt    /robots.txt    200
 /*             /index.html    200
+/products/*   /#categories   301
+/shop/*       /#categories   301
+/category/*   /#categories   301
+/items/*      /#categories   301
+/catalog/*    /#categories   301
+/collections/*   /#categories   301
