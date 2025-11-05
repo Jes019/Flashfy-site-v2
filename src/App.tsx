@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, CheckCircle, Link as LinkIcon } from "lucide-react";
 
 /*******************
- * Flashfy — Stable App (Updated for wider category cards)
- * - Uses files in /public/images from your repo:
- *   logo.png, hero.png, about-banner.webp, social-card.webp
- *   filters.webp, lights.webp, gauges.webp, actuators.webp, smart.webp, property.webp
- *   (plus optional galleries like filters-1.webp … filters-5.webp, etc.)
+ * Flashfy — Stable App (Wider cards + Pretty URLs)
+ * Fixes: unclosed <header> by removing stray </button> and duplicate dropdown block.
  *******************/
 
 /* ---------- Content blocks (short) ---------- */
@@ -42,14 +39,14 @@ const T = {
   smart: [
     "Smart Devices (Locks, Switches, Cameras)",
     "Connected control and security for facilities: streamline access, automate lighting, and monitor critical areas with reliable, integrable devices.",
-    "Smart Locks — keypad/RFID/Bluetooth/Wi-Fi models; audit trails; shared access; retrofit cylinders and mortise options.",
-    "Smart Switches — single/2-way/grid modules; scheduling and scenes; neutral/neutral-less variants; DIN-rail and wall-box formats.",
-    "Smart Cameras — fixed/dome/bullet; on-device or NVR; motion zones; IR/night; ONVIF streams for VMS integration.",
+    "Smart Locks — keypad/RFID/Bluetooth/Wi‑Fi models; audit trails; shared access; retrofit cylinders and mortise options.",
+    "Smart Switches — single/2‑way/grid modules; scheduling and scenes; neutral/neutral‑less variants; DIN‑rail and wall‑box formats.",
+    "Smart Cameras — fixed/dome/bullet; on‑device or NVR; motion zones; IR/night; ONVIF streams for VMS integration.",
     "Integration & Docs: Works with common platforms (e.g., app/cloud APIs); ONVIF for cameras; wiring diagrams and data sheets available on request.",
   ],
   property: [
     "Property Management Essentials",
-    "We handle end-to-end procurement for property management teams so you can keep operations running while we source and deliver what’s needed.",
+    "We handle end‑to‑end procurement for property management teams so you can keep operations running while we source and deliver what’s needed.",
     "Our coverage spans everyday replacements and site restocks across apartments, hotels, and facilities — with clear ETAs and paperwork handled.",
     "Examples we regularly procure:",
     "• Heat irons & hair dryers\n• Kitchenware and utensils\n• Bathroom fittings and accessories\n• Bedroom accessories and linens\n• Electrical spares and lighting\n• General maintenance tools\n• …and more — just send your list.",
@@ -57,7 +54,7 @@ const T = {
   ],
   about: [
     "About Flashfy",
-    "Flashfy was founded to simplify technical procurement across borders. We connect verified manufacturers and distributors to your project with clear costs, realistic ETAs, and documentation handled end-to-end.",
+    "Flashfy was founded to simplify technical procurement across borders. We connect verified manufacturers and distributors to your project with clear costs, realistic ETAs, and documentation handled end‑to‑end.",
     "Our Mission: make buying specialised industrial products as clear and dependable as local sourcing — with transparent options and no surprises.",
     "Expertise: decades of combined experience in industrial supply, HVAC, lighting, and logistics. We prioritise compliance (EN/ISO standards), paperwork accuracy, and timely updates.",
     "How We Work: 1) You send a spec or OEM ref. 2) We confirm availability, lead times, and required documents. 3) You choose the route (DAP/DDP where available). 4) We coordinate delivery and share tracking/updates.",
@@ -66,7 +63,7 @@ const T = {
   privacy: [
     "Privacy Policy",
     "We process contact and order data to prepare quotes and deliver orders. Data is shared only with suppliers, logistics providers, and payment processors as required.",
-    "Payments & Security: we do not store card numbers; payments are processed via secure third-party providers (Visa, Apple Pay, Google Pay, Mastercard, SEPA).",
+    "Payments & Security: we do not store card numbers; payments are processed via secure third‑party providers (Visa, Apple Pay, Google Pay, Mastercard, SEPA).",
     "Data Protection: GDPR safeguards apply. Access, rectification, erasure, and other rights available by emailing flashfyonlinestore@gmail.com.",
     "Retention: quote communications typically 24 months; order/tax records 6–10 years; support logs ~12 months.",
     "Contact: flashfyonlinestore@gmail.com",
@@ -74,15 +71,15 @@ const T = {
   terms: [
     "Terms & Conditions",
     "Quotes are limited offers and subject to supplier availability and validation. An order forms when we confirm acceptance in writing and (if required) receive payment/PO.",
-    "Shipping & Delivery: ETAs refer to time-to-dispatch from the manufacturer; shipping/transit time is additional. We will list route options and realistic ETAs in your quote.",
+    "Shipping & Delivery: ETAs refer to time‑to‑dispatch from the manufacturer; shipping/transit time is additional. We will list route options and realistic ETAs in your quote.",
     "Duties & Taxes: depend on route/incoterm (e.g., DAP or DDP if offered).",
-    "Returns & Warranty: eligibility depends on product type and supplier policy; custom/made-to-order items are generally non-returnable once in production. Manufacturer warranties apply where available.",
+    "Returns & Warranty: eligibility depends on product type and supplier policy; custom/made‑to‑order items are generally non‑returnable once in production. Manufacturer warranties apply where available.",
     "Liability: to the fullest extent permitted by law, indirect or consequential losses are excluded; aggregate liability is capped at the order amount for the specific claim period. Governing law: Malta.",
   ],
   legal: [
     "Legal Notice & Compliance",
-    "Status: Flashfy coordinates procurement and logistics with third-party suppliers; we are not the manufacturer. Technical information is guidance only.",
-    "Standards & Docs: Filters (EN ISO 16890, EN 1822), Gauges (ISO/DIN/EN families), Lights (EN 1838, EN 60598-2-22, DALI/DALI-2). We can relay manufacturer documentation when available.",
+    "Status: Flashfy coordinates procurement and logistics with third‑party suppliers; we are not the manufacturer. Technical information is guidance only.",
+    "Standards & Docs: Filters (EN ISO 16890, EN 1822), Gauges (ISO/DIN/EN families), Lights (EN 1838, EN 60598‑2‑22, DALI/DALI‑2). We can relay manufacturer documentation when available.",
     "Acceptable Use: no scraping, malicious code, or attempts to bypass security.",
     "IP & Takedown: report concerns to flashfyonlinestore@gmail.com with details and we will review promptly.",
   ],
@@ -90,14 +87,14 @@ const T = {
     "FAQs",
     "What does Flashfy do? — Flashfy handles company procurement: sourcing and delivering filters, gauges, lights, smart devices, and property management essentials with full documentation and logistics coordination to your country.",
     "Do you work with businesses only? — Yes. We primarily serve B2B customers (contractors, facilities, labs, manufacturers, property operators).",
-    "Can you provide documentation? — Yes: manufacturer datasheets, declarations, test reports (EN ISO 16890, EN 1822, EN 60598-2-22, ISO/IEC 17025, etc.) when available.",
+    "Can you provide documentation? — Yes: manufacturer datasheets, declarations, test reports (EN ISO 16890, EN 1822, EN 60598‑2‑22, ISO/IEC 17025, etc.) when available.",
     "How are payments handled? — Secure providers. We accept Visa, Mastercard, Apple Pay, Google Pay, and SEPA transfers (we never store full card data).",
     "How do ETAs work? — ETA = manufacturer lead time to dispatch; add transit depending on route (express/air/sea).",
     "How to request a quote? — Use the Request a Quote form or email flashfyonlinestore@gmail.com with spec, quantity, destination, docs.",
   ],
   help: [
     "Help Center",
-    "Process: Send spec → Options → Quote → Order & pay → Delivery → After-sales. Include sizes/grades/OEM refs, docs, quantity, destination for fastest quotes.",
+    "Process: Send spec → Options → Quote → Order & pay → Delivery → After‑sales. Include sizes/grades/OEM refs, docs, quantity, destination for fastest quotes.",
   ],
   blog: [
     "Procure Smarter: Specs & ETAs",
@@ -181,6 +178,27 @@ function QuoteTips() {
   );
 }
 
+/* ---------- Pure routing helpers (testable) ---------- */
+function routeFromPathname(pathname: string): string {
+  const p = (pathname || "/").replace(/\/+$/, "") || "/";
+  if (p === "/") return "home";
+  if (p === "/about") return "about";
+  if (p === "/categories") return "categories";
+  const policy = ["/privacy", "/terms", "/legal", "/faqs", "/help", "/blog"].find((x) => x === p);
+  if (policy) return policy.slice(1);
+  const m = p.match(/^\/categories\/([^/]+)$/);
+  if (m) return m[1];
+  return "home";
+}
+
+function pathForSlug(slug: string): string {
+  if (slug === "home") return "/";
+  if (slug === "about") return "/about";
+  if (slug === "categories") return "/categories";
+  if (["privacy", "terms", "legal", "faqs", "help", "blog"].includes(slug)) return `/${slug}`;
+  return `/categories/${slug}`;
+}
+
 /* ---------- Optional vertical gallery (shows placeholders if empty) ---------- */
 function MediaRow({ gallery }: { gallery?: string[] }) {
   const items = (gallery && gallery.length ? gallery : []).slice(0, 5);
@@ -189,19 +207,11 @@ function MediaRow({ gallery }: { gallery?: string[] }) {
       <div className="flex flex-col gap-3">
         {items.length > 0 ? (
           items.map((src, idx) => (
-            <img
-              key={idx}
-              src={src}
-              alt={`Gallery ${idx + 1}`}
-              className="w-full h-48 md:h-60 object-cover rounded border"
-            />
+            <img key={idx} src={src} alt={`Gallery ${idx + 1}`} className="w-full h-48 md:h-60 object-cover rounded border" />
           ))
         ) : (
           Array.from({ length: 5 }).map((_, idx) => (
-            <div
-              key={idx}
-              className="w-full h-48 md:h-60 rounded border bg-gray-100 flex items-center justify-center text-sm text-gray-500 select-none"
-            >
+            <div key={idx} className="w-full h-48 md:h-60 rounded border bg-gray-100 flex items-center justify-center text-sm text-gray-500 select-none">
               Add image
             </div>
           ))
@@ -222,18 +232,17 @@ export default function App() {
   const [prefillProduct, setPrefillProduct] = useState<string>("");
 
   useEffect(() => {
-    const syncFromHash = () => {
-      const target = (location.hash || "#home").slice(1) || "home";
-      setPage(target);
-    };
-
-    if (!location.hash) {
-      location.replace("#home");
+    // migrate old hash URLs (e.g., #filters) to pretty paths
+    if (location.hash) {
+      const h = (location.hash || "#home").slice(1) || "home";
+      const to = pathForSlug(h);
+      history.replaceState({}, document.title, to);
     }
-    syncFromHash();
 
-    window.addEventListener("hashchange", syncFromHash);
-    return () => window.removeEventListener("hashchange", syncFromHash);
+    const syncFromPath = () => setPage(routeFromPathname(location.pathname));
+    syncFromPath();
+    window.addEventListener("popstate", syncFromPath);
+    return () => window.removeEventListener("popstate", syncFromPath);
   }, []);
 
   // Text blocks
@@ -255,11 +264,13 @@ export default function App() {
   const pageMeta = page === "home" ? META.home : META.default;
 
   const handleNav = (target: string) => {
-    const nextHash = `#${target}`;
-    if (location.hash === nextHash) return;
-    location.hash = target; // triggers the hashchange event
+    const to = pathForSlug(target);
+    if (location.pathname !== to) {
+      history.pushState({}, document.title, to);
+      setPage(target === "home" ? "home" : target);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     setShopOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const openQuote = (prefill?: string) => {
@@ -415,42 +426,33 @@ export default function App() {
       <span className="font-semibold text-sm text-gray-700 mr-1">Payments accepted:</span>
       <svg width="68" height="24" viewBox="0 0 68 24" role="img" aria-label="Visa">
         <rect width="68" height="24" rx="4" fill="#1a1f71" />
-        <text x="34" y="16" textAnchor="middle" fontSize="12" fill="#fff" fontFamily="Arial, Helvetica, sans-serif">
-          VISA
-        </text>
+        <text x="34" y="16" textAnchor="middle" fontSize="12" fill="#fff" fontFamily="Arial, Helvetica, sans-serif">VISA</text>
       </svg>
       <svg width="84" height="24" viewBox="0 0 84 24" role="img" aria-label="Google Pay">
         <rect width="84" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
-        <text x="42" y="16" textAnchor="middle" fontSize="12" fill="#111827" fontFamily="Arial, Helvetica, sans-serif">
-          Google Pay
-        </text>
+        <text x="42" y="16" textAnchor="middle" fontSize="12" fill="#111827" fontFamily="Arial, Helvetica, sans-serif">Google Pay</text>
       </svg>
       <svg width="78" height="24" viewBox="0 0 78 24" role="img" aria-label="Apple Pay">
         <rect width="78" height="24" rx="4" fill="#000" />
-        <text x="39" y="16" textAnchor="middle" fontSize="12" fill="#fff" fontFamily="Arial, Helvetica, sans-serif">
-          Apple Pay
-        </text>
+        <text x="39" y="16" textAnchor="middle" fontSize="12" fill="#fff" fontFamily="Arial, Helvetica, sans-serif">Apple Pay</text>
       </svg>
       <svg width="108" height="24" viewBox="0 0 108 24" role="img" aria-label="Mastercard">
         <rect width="108" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
         <circle cx="46" cy="12" r="7" fill="#eb001b" />
         <circle cx="60" cy="12" r="7" fill="#f79e1b" />
-        <text x="86" y="16" textAnchor="middle" fontSize="12" fill="#111827" fontFamily="Arial, Helvetica, sans-serif">
-          Mastercard
-        </text>
+        <text x="86" y="16" textAnchor="middle" fontSize="12" fill="#111827" fontFamily="Arial, Helvetica, sans-serif">Mastercard</text>
       </svg>
       <svg width="64" height="24" viewBox="0 0 64 24" role="img" aria-label="SEPA">
         <rect width="64" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
-        <text x="32" y="16" textAnchor="middle" fontSize="12" fill="#0f172a" fontFamily="Arial, Helvetica, sans-serif">
-          SEPA
-        </text>
+        <text x="32" y="16" textAnchor="middle" fontSize="12" fill="#0f172a" fontFamily="Arial, Helvetica, sans-serif">SEPA</text>
       </svg>
     </div>
   );
 
   // helper: copy current URL (shareable link)
-  const copyLink = (hash: string) => {
-    const url = `${location.origin}${location.pathname}#${hash}`;
+  const copyLink = (slug: string) => {
+    const path = pathForSlug(slug);
+    const url = `${location.origin}${path}`;
     navigator.clipboard.writeText(url).then(() => setToast("Link copied!"));
   };
 
@@ -470,9 +472,7 @@ export default function App() {
           <img src="/images/logo.png" alt="Flashfy logo" className="h-10 w-auto rounded" />
         </button>
         <nav className="hidden md:flex items-center space-x-8 mx-auto" aria-label="Main">
-          <button onClick={() => handleNav("home")} className="hover:underline">
-            Home
-          </button>
+          <button onClick={() => handleNav("home")} className="hover:underline">Home</button>
           <div className="relative">
             <button
               onClick={() => setShopOpen((v) => !v)}
@@ -485,23 +485,15 @@ export default function App() {
             </button>
             {shopOpen && (
               <div className="absolute bg-white shadow rounded mt-2 left-0 w-56 z-30" role="menu">
-                <button onClick={() => handleNav("categories")} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                  All Categories
-                </button>
+                <button onClick={() => handleNav("categories")} className="block w-full text-left px-4 py-2 hover:bg-gray-100">All Categories</button>
                 {categories.map((cat) => (
-                  <button key={cat.id} onClick={() => handleNav(cat.id)} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                    {cat.title}
-                  </button>
+                  <button key={cat.id} onClick={() => handleNav(cat.id)} className="block w-full text-left px-4 py-2 hover:bg-gray-100">{cat.title}</button>
                 ))}
               </div>
             )}
           </div>
-          <button onClick={() => handleNav("about")} className="hover:underline">
-            About Us
-          </button>
-          <button onClick={() => openQuote()} className="hover:underline">
-            Contact Us
-          </button>
+          <button onClick={() => handleNav("about")} className="hover:underline">About Us</button>
+          <button onClick={() => openQuote()} className="hover:underline">Contact Us</button>
         </nav>
         <button className="md:hidden" aria-label="Open menu">
           <Menu />
@@ -515,16 +507,10 @@ export default function App() {
           <div className="absolute inset-0 bg-black/35" />
           <div className="absolute inset-0 max-w-6xl mx-auto px-6 flex flex-col justify-center">
             <h1 className="text-white text-4xl md:text-5xl font-bold mb-3">Procurement made clear</h1>
-            <p className="text-white/90 mb-6 max-w-2xl">
-              You choose. We deliver. From supplier to your country—paperwork, shipping, and updates handled.
-            </p>
+            <p className="text-white/90 mb-6 max-w-2xl">You choose. We deliver. From supplier to your country—paperwork, shipping, and updates handled.</p>
             <div className="flex gap-3">
-              <button onClick={() => handleNav("categories")} className="bg-sky-600 px-4 py-2 rounded text-white">
-                Shop
-              </button>
-              <button onClick={() => openQuote()} className="bg-white/90 text-gray-900 px-4 py-2 rounded">
-                Request a Quote
-              </button>
+              <button onClick={() => handleNav("categories")} className="bg-sky-600 px-4 py-2 rounded text-white">Shop</button>
+              <button onClick={() => openQuote()} className="bg-white/90 text-gray-900 px-4 py-2 rounded">Request a Quote</button>
             </div>
           </div>
         </section>
@@ -534,21 +520,21 @@ export default function App() {
       {page === "home" && (
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto px-6 py-8">
           <div className="bg-white rounded-xl shadow p-4 flex items-center gap-3">
-            <CheckCircle className="text-green-600" />{" "}
+            <CheckCircle className="text-green-600" />
             <div>
               <div className="font-semibold">Secure Payments</div>
               <div className="text-sm text-gray-600">Safe online checkout routes</div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow p-4 flex items-center gap-3">
-            <CheckCircle className="text-green-600" />{" "}
+            <CheckCircle className="text-green-600" />
             <div>
               <div className="font-semibold">Easy Returns</div>
               <div className="text-sm text-gray-600">Supplier policies clarified upfront</div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow p-4 flex items-center gap-3">
-            <CheckCircle className="text-green-600" />{" "}
+            <CheckCircle className="text-green-600" />
             <div>
               <div className="font-semibold">Clear ETAs</div>
               <div className="text-sm text-gray-600">Manufacture lead time + transit</div>
@@ -574,14 +560,8 @@ export default function App() {
               <p className="text-gray-600 text-base flex-grow">{cat.desc}</p>
               <div className="flex gap-3 mt-6">
                 <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
-                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">
-                  Quote Now
-                </button>
-                <button
-                  className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
-                  onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }}
-                  title="Copy shareable link"
-                >
+                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">Quote Now</button>
+                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }} title="Copy shareable link">
                   <LinkIcon size={16} /> Share
                 </button>
               </div>
@@ -607,14 +587,8 @@ export default function App() {
               <p className="text-gray-600 text-base flex-grow">{cat.desc}</p>
               <div className="flex gap-3 mt-6">
                 <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
-                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">
-                  Quote Now
-                </button>
-                <button
-                  className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
-                  onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }}
-                  title="Copy shareable link"
-                >
+                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">Quote Now</button>
+                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }} title="Copy shareable link">
                   <LinkIcon size={16} /> Share
                 </button>
               </div>
@@ -630,11 +604,7 @@ export default function App() {
             <section key={cat.id} className="p-8 max-w-6xl mx-auto">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-3xl font-bold">{cat.title}</h2>
-                <button
-                  className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
-                  onClick={() => copyLink(cat.id)}
-                  title="Copy shareable link"
-                >
+                <button className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={() => copyLink(cat.id)} title="Copy shareable link">
                   <LinkIcon size={16} /> Copy link
                 </button>
               </div>
@@ -647,12 +617,8 @@ export default function App() {
                   <p>{cat.text}</p>
                   <QuoteTips />
                   <div className="mt-6 flex gap-3">
-                    <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-4 rounded">
-                      Request a Quote for {cat.title}
-                    </button>
-                    <button onClick={() => handleNav("categories")} className="bg-gray-200 text-gray-900 py-2 px-4 rounded">
-                      Back to Categories
-                    </button>
+                    <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-4 rounded">Request a Quote for {cat.title}</button>
+                    <button onClick={() => handleNav("categories")} className="bg-gray-200 text-gray-900 py-2 px-4 rounded">Back to Categories</button>
                   </div>
                 </div>
               </div>
@@ -686,9 +652,7 @@ export default function App() {
                 <div className="mt-10 text-center border-top pt-6">
                   <h4 className="text-xl font-semibold mb-2">Need more help?</h4>
                   <p className="text-gray-700 text-sm mb-3">Didn’t find what you’re looking for? Reach out — we’ll respond within one business day.</p>
-                  <button onClick={() => openQuote()} className="inline-block bg-sky-600 text-white px-6 py-2 rounded hover:bg-sky-700 transition">
-                    Contact Us
-                  </button>
+                  <button onClick={() => openQuote()} className="inline-block bg-sky-600 text-white px-6 py-2 rounded hover:bg-sky-700 transition">Contact Us</button>
                 </div>
               )}
             </section>
@@ -698,18 +662,12 @@ export default function App() {
       {/* Why Choose */}
       <section className="bg-indigo-50 py-12 text-center mt-auto">
         <h2 className="text-2xl font-bold mb-2">Why Choose Flashfy</h2>
-        <p className="max-w-3xl mx-auto text-gray-700">
-          One accountable partner from quote to delivery. Clear costs, realistic ETAs, compliance-first documentation, and fast issue handling.
-        </p>
+        <p className="max-w-3xl mx-auto text-gray-700">One accountable partner from quote to delivery. Clear costs, realistic ETAs, compliance-first documentation, and fast issue handling.</p>
       </section>
 
       {/* Vertical Request Quote handle */}
       <div className="fixed top-1/2 right-0 z-40 -translate-y-1/2">
-        <button
-          onClick={() => openQuote()}
-          className="bg-sky-600 text-white px-2 py-4 rounded-l-md shadow text-xs font-semibold tracking-wide"
-          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-        >
+        <button onClick={() => openQuote()} className="bg-sky-600 text-white px-2 py-4 rounded-l-md shadow text-xs font-semibold tracking-wide" style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}>
           Request Quote
         </button>
       </div>
@@ -728,22 +686,12 @@ export default function App() {
               <form onSubmit={handleSubmit} className="flex flex-col space-y-3 bg-white border rounded-xl shadow p-5">
                 <input type="text" name="name" placeholder="Your name" className="border p-2 rounded" required />
                 <input type="email" name="email" placeholder="Your email" className="border p-2 rounded" required />
-                <input
-                  type="text"
-                  name="product"
-                  placeholder="Product / spec / OEM ref"
-                  className="border p-2 rounded"
-                  required
-                  defaultValue={prefillProduct}
-                  key={prefillProduct}
-                />
+                <input type="text" name="product" placeholder="Product / spec / OEM ref" className="border p-2 rounded" required defaultValue={prefillProduct} key={prefillProduct} />
                 <input type="number" name="quantity" placeholder="Quantity" className="border p-2 rounded" required />
                 <input type="text" name="destination" placeholder="Destination country" className="border p-2 rounded" required />
                 <textarea name="details" placeholder="Details (sizes/grade, docs needed)" className="border p-2 rounded" rows={4}></textarea>
                 <p className="text-xs text-gray-600">We try to reply as soon as our suppliers give us the pricing and lead time.</p>
-                <button type="submit" className="bg-sky-600 text-white py-2 rounded">
-                  Submit
-                </button>
+                <button type="submit" className="bg-sky-600 text-white py-2 rounded">Submit</button>
                 {formStatus === "success" && (
                   <div className="text-green-700 text-sm flex items-center gap-2">
                     <CheckCircle /> Thank you! Your request was sent.
@@ -772,38 +720,20 @@ export default function App() {
           <div>
             <h3 className="font-semibold mb-2">Flashfy</h3>
             <nav className="flex flex-col space-y-1 text-sm">
-              <button onClick={() => handleNav("about")} className="hover:underline text-left">
-                About Us
-              </button>
-              <button onClick={() => handleNav("categories")} className="hover:underline text-left">
-                Shop
-              </button>
-              <button onClick={() => handleNav("blog")} className="hover:underline text-left">
-                Blog
-              </button>
-              <button onClick={() => openQuote()} className="hover:underline text-left">
-                Contact Us
-              </button>
+              <button onClick={() => handleNav("about")} className="hover:underline text-left">About Us</button>
+              <button onClick={() => handleNav("categories")} className="hover:underline text-left">Shop</button>
+              <button onClick={() => handleNav("blog")} className="hover:underline text-left">Blog</button>
+              <button onClick={() => openQuote()} className="hover:underline text-left">Contact Us</button>
             </nav>
           </div>
           <div>
             <h3 className="font-semibold mb-2">Information</h3>
             <nav className="flex flex-col space-y-1 text-sm">
-              <button onClick={() => handleNav("privacy")} className="hover:underline text-left">
-                Privacy Policy
-              </button>
-              <button onClick={() => handleNav("terms")} className="hover:underline text-left">
-                Terms & Conditions
-              </button>
-              <button onClick={() => handleNav("legal")} className="hover:underline text-left">
-                Legal Notice & Compliance
-              </button>
-              <button onClick={() => handleNav("faqs")} className="hover:underline text-left">
-                FAQs
-              </button>
-              <button onClick={() => handleNav("help")} className="hover:underline text-left">
-                Help Center
-              </button>
+              <button onClick={() => handleNav("privacy")} className="hover:underline text-left">Privacy Policy</button>
+              <button onClick={() => handleNav("terms")} className="hover:underline text-left">Terms & Conditions</button>
+              <button onClick={() => handleNav("legal")} className="hover:underline text-left">Legal Notice & Compliance</button>
+              <button onClick={() => handleNav("faqs")} className="hover:underline text-left">FAQs</button>
+              <button onClick={() => handleNav("help")} className="hover:underline text-left">Help Center</button>
             </nav>
           </div>
         </div>
@@ -812,34 +742,51 @@ export default function App() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 bg-black text-white text-sm px-4 py-2 rounded shadow">
-          {toast}
-        </div>
+        <div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 bg-black text-white text-sm px-4 py-2 rounded shadow">{toast}</div>
       )}
     </div>
   );
 }
 
-/* ---------- Self-test (console) ---------- */
+/* ---------- Self-tests (console) ---------- */
 (function runSelfTests() {
   try {
-    const must = [
-      "filters",
-      "gauges",
-      "lights",
-      "actuators",
-      "smart",
-      "property",
-      "privacy",
-      "terms",
-      "legal",
-      "faqs",
-      "help",
-      "blog",
-      "about",
-    ];
+    // content keys present (existing test — do not change)
+    const must = ["filters", "gauges", "lights", "actuators", "smart", "property", "privacy", "terms", "legal", "faqs", "help", "blog", "about"];
     const miss = must.filter((k) => !(k in (T as any)));
     if (miss.length) console.warn("[SelfTest] Missing blocks:", miss);
+
+    // NEW: routing map tests
+    const routeCases: Array<[string, string]> = [
+      ["/", "home"],
+      ["/about", "about"],
+      ["/categories", "categories"],
+      ["/categories/lights", "lights"],
+      ["/privacy", "privacy"],
+      ["/terms", "terms"],
+      ["/legal", "legal"],
+      ["/faqs", "faqs"],
+      ["/help", "help"],
+      ["/blog", "blog"],
+      ["/unknown", "home"],
+    ];
+    routeCases.forEach(([path, expect]) => {
+      const got = routeFromPathname(path);
+      if (got !== expect) console.error(`[SelfTest] routeFromPathname failed: ${path} -> ${got} (expected ${expect})`);
+    });
+
+    // NEW: path builder tests
+    const pathCases: Array<[string, string]> = [
+      ["home", "/"],
+      ["about", "/about"],
+      ["categories", "/categories"],
+      ["lights", "/categories/lights"],
+      ["privacy", "/privacy"],
+    ];
+    pathCases.forEach(([slug, expect]) => {
+      const got = pathForSlug(slug);
+      if (got !== expect) console.error(`[SelfTest] pathForSlug failed: ${slug} -> ${got} (expected ${expect})`);
+    });
   } catch (e) {
     console.warn("[SelfTest] Exception:", e);
   }
