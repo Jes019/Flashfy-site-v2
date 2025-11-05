@@ -1,7 +1,8 @@
 User-agent: *
+Allow: /
 Disallow: /products/
 Disallow: /category/
 Disallow: /shop/
 Disallow: /old/
-Allow: /
+
 Sitemap: https://flashfy.net/sitemap.xml
