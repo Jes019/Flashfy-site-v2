@@ -127,6 +127,7 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
     const m = { ...META.default, ...meta };
     document.title = m.title || META.default.title;
 
+    // ✅ Description
     const ensure = (name: string) => {
       let el = document.querySelector(`meta[name='${name}']`) as HTMLMetaElement | null;
       if (!el) {
@@ -138,7 +139,17 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
     };
     ensure("description").setAttribute("content", m.description || META.default.description);
 
-    // Basic org LD JSON
+    // ✅ Canonical
+    let canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    const url = `${location.origin}${location.pathname}`;
+    canonical.href = url;
+
+    // ✅ Structured data (already present)
     const org = {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -158,6 +169,7 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
   }, [meta]);
   return null;
 }
+
 
 /* ---------- Quote Tips (short) ---------- */
 const TIP = {
