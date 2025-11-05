@@ -1,6 +1,63 @@
 
 <!doctype html>
 <html lang="en">
+  <!-- Canonical + SPA navigation sync -->
+  <link rel="canonical" href="https://flashfy.net/" id="canonical-link" />
+  <script>
+    (function () {
+      // Compute canonical from current location (no query/hash)
+      function canonicalFor(loc) {
+        var origin = loc.origin || (loc.protocol + '//' + loc.host);
+        var path = loc.pathname || '/';
+        // Normalize homepage canonical to end with '/'
+        if (path === '') path = '/';
+        if (path === '/') return origin + '/';
+        return origin + path;
+      }
+
+      function updateCanonical() {
+        var link = document.getElementById('canonical-link');
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'canonical';
+          link.id = 'canonical-link';
+          document.head.appendChild(link);
+        }
+        link.href = canonicalFor(window.location);
+
+        // OPTIONAL: send GA4 page_view for SPA navigations
+        if (window.gtag) {
+          window.gtag('event', 'page_view', {
+            page_location: window.location.href,
+            page_path: window.location.pathname,
+            page_title: document.title || 'Flashfy'
+          });
+        }
+      }
+
+      // Patch History API to detect client-side navigations
+      var _pushState = history.pushState;
+      history.pushState = function () {
+        var r = _pushState.apply(this, arguments);
+        updateCanonical();
+        return r;
+      };
+
+      var _replaceState = history.replaceState;
+      history.replaceState = function () {
+        var r = _replaceState.apply(this, arguments);
+        updateCanonical();
+        return r;
+      };
+
+      // Back/forward buttons
+      window.addEventListener('popstate', updateCanonical);
+
+      // Initial canonical on first load
+      updateCanonical();
+    })();
+  </script>
+  
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
