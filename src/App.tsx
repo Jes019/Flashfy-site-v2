@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, CheckCircle } from "lucide-react";
+import { Menu, X, ChevronDown, CheckCircle, Link as LinkIcon } from "lucide-react";
 
 /*******************
- * Flashfy — Stable App (WebP/PNG paths fixed)
+ * Flashfy — Stable App (Updated for wider category cards)
  * - Uses files in /public/images from your repo:
  *   logo.png, hero.png, about-banner.webp, social-card.webp
  *   filters.webp, lights.webp, gauges.webp, actuators.webp, smart.webp, property.webp
  *   (plus optional galleries like filters-1.webp … filters-5.webp, etc.)
  *******************/
-
 
 /* ---------- Content blocks (short) ---------- */
 const T = {
@@ -223,22 +222,19 @@ export default function App() {
   const [prefillProduct, setPrefillProduct] = useState<string>("");
 
   useEffect(() => {
-  const syncFromHash = () => {
-    const target = (location.hash || "#home").slice(1) || "home";
-    setPage(target);
-  };
+    const syncFromHash = () => {
+      const target = (location.hash || "#home").slice(1) || "home";
+      setPage(target);
+    };
 
-  // On first load: ensure we’re on a hash route but
-  // do NOT create an extra history entry (prevents about:blank on first Back)
-  if (!location.hash) {
-    location.replace("#home");  // replaces current entry, no extra "back" step
-  }
-  syncFromHash();
+    if (!location.hash) {
+      location.replace("#home");
+    }
+    syncFromHash();
 
-  window.addEventListener("hashchange", syncFromHash);
-  return () => window.removeEventListener("hashchange", syncFromHash);
-}, []);
-
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   // Text blocks
   const filtersText = asText(T.filters);
@@ -258,14 +254,13 @@ export default function App() {
   // Derived per-page meta (home only here)
   const pageMeta = page === "home" ? META.home : META.default;
 
- const handleNav = (target: string) => {
-  const nextHash = `#${target}`;
-  if (location.hash === nextHash) return;
-  location.hash = target;                // triggers the hashchange event
-  setShopOpen(false);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
+  const handleNav = (target: string) => {
+    const nextHash = `#${target}`;
+    if (location.hash === nextHash) return;
+    location.hash = target; // triggers the hashchange event
+    setShopOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const openQuote = (prefill?: string) => {
     setPrefillProduct(prefill || "");
@@ -453,6 +448,12 @@ export default function App() {
     </div>
   );
 
+  // helper: copy current URL (shareable link)
+  const copyLink = (hash: string) => {
+    const url = `${location.origin}${location.pathname}#${hash}`;
+    navigator.clipboard.writeText(url).then(() => setToast("Link copied!"));
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* SEO */}
@@ -507,12 +508,12 @@ export default function App() {
         </button>
       </header>
 
-      {/* Hero (image fallback; if you prefer the video version, we can reinsert it) */}
+      {/* Hero */}
       {page === "home" && (
         <section className="relative w-full">
           <img src="/images/hero.png" alt="Industrial supply and logistics hero" className="w-full h-[48vh] md:h-[62vh] object-cover" />
           <div className="absolute inset-0 bg-black/35" />
-          <div className="absolute inset-0 max-w-5xl mx-auto px-6 flex flex-col justify-center">
+          <div className="absolute inset-0 max-w-6xl mx-auto px-6 flex flex-col justify-center">
             <h1 className="text-white text-4xl md:text-5xl font-bold mb-3">Procurement made clear</h1>
             <p className="text-white/90 mb-6 max-w-2xl">
               You choose. We deliver. From supplier to your country—paperwork, shipping, and updates handled.
@@ -556,20 +557,32 @@ export default function App() {
         </section>
       )}
 
-      {/* Home Category cards */}
+      {/* Home Category cards — WIDER (2-up on desktop, big images) */}
       {page === "home" && (
-        <section className="py-12 px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+        <section className="py-12 px-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {categories.map((cat) => (
-            <div key={cat.id} className="border rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col">
-              <img src={cat.img} alt={cat.title} className="h-40 object-cover rounded mb-4" />
-              <h3 className="text-lg font-semibold mb-2">{cat.title}</h3>
-              <p className="text-gray-600 text-sm flex-grow">{cat.desc}</p>
-              <div className="flex space-x-2 mt-4">
-                <button onClick={() => handleNav(cat.id)} className="bg-gray-200 text-gray-900 py-2 px-3 rounded">
-                  View
-                </button>
-                <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-3 rounded">
+            <div
+              key={cat.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleNav(cat.id)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleNav(cat.id)}
+              className="group border rounded-3xl shadow hover:shadow-xl transition p-6 flex flex-col cursor-pointer bg-white"
+            >
+              <img src={cat.img} alt={cat.title} className="h-72 w-full object-cover rounded-2xl mb-5 group-hover:scale-[1.01] transition-transform" />
+              <h3 className="text-2xl font-semibold mb-2">{cat.title}</h3>
+              <p className="text-gray-600 text-base flex-grow">{cat.desc}</p>
+              <div className="flex gap-3 mt-6">
+                <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
+                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">
                   Quote Now
+                </button>
+                <button
+                  className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+                  onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }}
+                  title="Copy shareable link"
+                >
+                  <LinkIcon size={16} /> Share
                 </button>
               </div>
             </div>
@@ -577,20 +590,32 @@ export default function App() {
         </section>
       )}
 
-      {/* Categories index */}
+      {/* Categories index — same wider layout */}
       {page === "categories" && (
-        <section className="py-12 px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+        <section className="py-12 px-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {categories.map((cat) => (
-            <div key={cat.id} className="border rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col">
-              <img src={cat.img} alt={cat.title} className="h-40 object-cover rounded mb-4" />
-              <h3 className="text-lg font-semibold mb-2">{cat.title}</h3>
-              <p className="text-gray-600 text-sm flex-grow">{cat.desc}</p>
-              <div className="flex space-x-2 mt-4">
-                <button onClick={() => handleNav(cat.id)} className="bg-gray-200 text-gray-900 py-2 px-3 rounded">
-                  View
-                </button>
-                <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-3 rounded">
+            <div
+              key={cat.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleNav(cat.id)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleNav(cat.id)}
+              className="group border rounded-3xl shadow hover:shadow-xl transition p-6 flex flex-col cursor-pointer bg-white"
+            >
+              <img src={cat.img} alt={cat.title} className="h-72 w-full object-cover rounded-2xl mb-5 group-hover:scale-[1.01] transition-transform" />
+              <h3 className="text-2xl font-semibold mb-2">{cat.title}</h3>
+              <p className="text-gray-600 text-base flex-grow">{cat.desc}</p>
+              <div className="flex gap-3 mt-6">
+                <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
+                <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">
                   Quote Now
+                </button>
+                <button
+                  className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+                  onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }}
+                  title="Copy shareable link"
+                >
+                  <LinkIcon size={16} /> Share
                 </button>
               </div>
             </div>
@@ -603,18 +628,30 @@ export default function App() {
         (cat) =>
           page === cat.id && (
             <section key={cat.id} className="p-8 max-w-6xl mx-auto">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-3xl font-bold">{cat.title}</h2>
+                <button
+                  className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+                  onClick={() => copyLink(cat.id)}
+                  title="Copy shareable link"
+                >
+                  <LinkIcon size={16} /> Copy link
+                </button>
+              </div>
               <div className="grid md:grid-cols-3 gap-8 items-start">
                 <div className="md:col-span-1">
-                  <img src={cat.img} alt={cat.title} className="w-full rounded shadow" />
+                  <img src={cat.img} alt={cat.title} className="w-full rounded-2xl shadow" />
                   <MediaRow gallery={(cat as any).galleryUrls} />
                 </div>
                 <div className="md:col-span-2 whitespace-pre-line text-gray-700">
-                  <h2 className="text-3xl font-bold mb-4">{cat.title}</h2>
                   <p>{cat.text}</p>
                   <QuoteTips />
-                  <div className="mt-6">
+                  <div className="mt-6 flex gap-3">
                     <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-4 rounded">
                       Request a Quote for {cat.title}
+                    </button>
+                    <button onClick={() => handleNav("categories")} className="bg-gray-200 text-gray-900 py-2 px-4 rounded">
+                      Back to Categories
                     </button>
                   </div>
                 </div>
