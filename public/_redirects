@@ -7,3 +7,9 @@
 /items/*      /#categories   301
 /catalog/*    /#categories   301
 /collections/*   /#categories   301
+/categories/filters   /#filters   301
+/categories/lights    /#lights    301
+/categories/gauges    /#gauges    301
+/categories/actuators /#actuators 301
+/categories/smart     /#smart     301
+/categories/property  /#property  301
