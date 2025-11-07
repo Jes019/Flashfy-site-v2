@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, CheckCircle, Link as LinkIcon } from "lucide-react";
+import { Menu, X, ChevronDown, CheckCircle, Link as LinkIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
 /*******************
- * Flashfy — Stable App (Wider cards + Pretty URLs)
- * Fixes: unclosed <header> by removing stray </button> and duplicate dropdown block.
+ * Flashfy — App + Product Pages (carousel + SEO + pretty URLs)
  *******************/
 
 /* ---------- Content blocks (short) ---------- */
@@ -39,14 +38,14 @@ const T = {
   smart: [
     "Smart Devices (Locks, Switches, Cameras)",
     "Connected control and security for facilities: streamline access, automate lighting, and monitor critical areas with reliable, integrable devices.",
-    "Smart Locks — keypad/RFID/Bluetooth/Wi‑Fi models; audit trails; shared access; retrofit cylinders and mortise options.",
-    "Smart Switches — single/2‑way/grid modules; scheduling and scenes; neutral/neutral‑less variants; DIN‑rail and wall‑box formats.",
-    "Smart Cameras — fixed/dome/bullet; on‑device or NVR; motion zones; IR/night; ONVIF streams for VMS integration.",
+    "Smart Locks — keypad/RFID/Bluetooth/Wi-Fi models; audit trails; shared access; retrofit cylinders and mortise options.",
+    "Smart Switches — single/2-way/grid modules; scheduling and scenes; neutral/neutral-less variants; DIN-rail and wall-box formats.",
+    "Smart Cameras — fixed/dome/bullet; on-device or NVR; motion zones; IR/night; ONVIF streams for VMS integration.",
     "Integration & Docs: Works with common platforms (e.g., app/cloud APIs); ONVIF for cameras; wiring diagrams and data sheets available on request.",
   ],
   property: [
     "Property Management Essentials",
-    "We handle end‑to‑end procurement for property management teams so you can keep operations running while we source and deliver what’s needed.",
+    "We handle end-to-end procurement for property management teams so you can keep operations running while we source and deliver what’s needed.",
     "Our coverage spans everyday replacements and site restocks across apartments, hotels, and facilities — with clear ETAs and paperwork handled.",
     "Examples we regularly procure:",
     "• Heat irons & hair dryers\n• Kitchenware and utensils\n• Bathroom fittings and accessories\n• Bedroom accessories and linens\n• Electrical spares and lighting\n• General maintenance tools\n• …and more — just send your list.",
@@ -54,7 +53,7 @@ const T = {
   ],
   about: [
     "About Flashfy",
-    "Flashfy was founded to simplify technical procurement across borders. We connect verified manufacturers and distributors to your project with clear costs, realistic ETAs, and documentation handled end‑to‑end.",
+    "Flashfy was founded to simplify technical procurement across borders. We connect verified manufacturers and distributors to your project with clear costs, realistic ETAs, and documentation handled end-to-end.",
     "Our Mission: make buying specialised industrial products as clear and dependable as local sourcing — with transparent options and no surprises.",
     "Expertise: decades of combined experience in industrial supply, HVAC, lighting, and logistics. We prioritise compliance (EN/ISO standards), paperwork accuracy, and timely updates.",
     "How We Work: 1) You send a spec or OEM ref. 2) We confirm availability, lead times, and required documents. 3) You choose the route (DAP/DDP where available). 4) We coordinate delivery and share tracking/updates.",
@@ -63,7 +62,7 @@ const T = {
   privacy: [
     "Privacy Policy",
     "We process contact and order data to prepare quotes and deliver orders. Data is shared only with suppliers, logistics providers, and payment processors as required.",
-    "Payments & Security: we do not store card numbers; payments are processed via secure third‑party providers (Visa, Apple Pay, Google Pay, Mastercard, SEPA).",
+    "Payments & Security: we do not store card numbers; payments are processed via secure third-party providers (Visa, Apple Pay, Google Pay, Mastercard, SEPA).",
     "Data Protection: GDPR safeguards apply. Access, rectification, erasure, and other rights available by emailing flashfyonlinestore@gmail.com.",
     "Retention: quote communications typically 24 months; order/tax records 6–10 years; support logs ~12 months.",
     "Contact: flashfyonlinestore@gmail.com",
@@ -71,15 +70,15 @@ const T = {
   terms: [
     "Terms & Conditions",
     "Quotes are limited offers and subject to supplier availability and validation. An order forms when we confirm acceptance in writing and (if required) receive payment/PO.",
-    "Shipping & Delivery: ETAs refer to time‑to‑dispatch from the manufacturer; shipping/transit time is additional. We will list route options and realistic ETAs in your quote.",
+    "Shipping & Delivery: ETAs refer to time-to-dispatch from the manufacturer; shipping/transit time is additional. We will list route options and realistic ETAs in your quote.",
     "Duties & Taxes: depend on route/incoterm (e.g., DAP or DDP if offered).",
-    "Returns & Warranty: eligibility depends on product type and supplier policy; custom/made‑to‑order items are generally non‑returnable once in production. Manufacturer warranties apply where available.",
+    "Returns & Warranty: eligibility depends on product type and supplier policy; custom/made-to-order items are generally non-returnable once in production. Manufacturer warranties apply where available.",
     "Liability: to the fullest extent permitted by law, indirect or consequential losses are excluded; aggregate liability is capped at the order amount for the specific claim period. Governing law: Malta.",
   ],
   legal: [
     "Legal Notice & Compliance",
-    "Status: Flashfy coordinates procurement and logistics with third‑party suppliers; we are not the manufacturer. Technical information is guidance only.",
-    "Standards & Docs: Filters (EN ISO 16890, EN 1822), Gauges (ISO/DIN/EN families), Lights (EN 1838, EN 60598‑2‑22, DALI/DALI‑2). We can relay manufacturer documentation when available.",
+    "Status: Flashfy coordinates procurement and logistics with third-party suppliers; we are not the manufacturer. Technical information is guidance only.",
+    "Standards & Docs: Filters (EN ISO 16890, EN 1822), Gauges (ISO/DIN/EN families), Lights (EN 1838, EN 60598-2-22, DALI/DALI-2). We can relay manufacturer documentation when available.",
     "Acceptable Use: no scraping, malicious code, or attempts to bypass security.",
     "IP & Takedown: report concerns to flashfyonlinestore@gmail.com with details and we will review promptly.",
   ],
@@ -87,14 +86,14 @@ const T = {
     "FAQs",
     "What does Flashfy do? — Flashfy handles company procurement: sourcing and delivering filters, gauges, lights, smart devices, and property management essentials with full documentation and logistics coordination to your country.",
     "Do you work with businesses only? — Yes. We primarily serve B2B customers (contractors, facilities, labs, manufacturers, property operators).",
-    "Can you provide documentation? — Yes: manufacturer datasheets, declarations, test reports (EN ISO 16890, EN 1822, EN 60598‑2‑22, ISO/IEC 17025, etc.) when available.",
+    "Can you provide documentation? — Yes: manufacturer datasheets, declarations, test reports (EN ISO 16890, EN 1822, EN 60598-2-22, ISO/IEC 17025, etc.) when available.",
     "How are payments handled? — Secure providers. We accept Visa, Mastercard, Apple Pay, Google Pay, and SEPA transfers (we never store full card data).",
     "How do ETAs work? — ETA = manufacturer lead time to dispatch; add transit depending on route (express/air/sea).",
     "How to request a quote? — Use the Request a Quote form or email flashfyonlinestore@gmail.com with spec, quantity, destination, docs.",
   ],
   help: [
     "Help Center",
-    "Process: Send spec → Options → Quote → Order & pay → Delivery → After‑sales. Include sizes/grades/OEM refs, docs, quantity, destination for fastest quotes.",
+    "Process: Send spec → Options → Quote → Order & pay → Delivery → After-sales. Include sizes/grades/OEM refs, docs, quantity, destination for fastest quotes.",
   ],
   blog: [
     "Procure Smarter: Specs & ETAs",
@@ -127,7 +126,6 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
     const m = { ...META.default, ...meta };
     document.title = m.title || META.default.title;
 
-    // ✅ Description
     const ensure = (name: string) => {
       let el = document.querySelector(`meta[name='${name}']`) as HTMLMetaElement | null;
       if (!el) {
@@ -139,7 +137,7 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
     };
     ensure("description").setAttribute("content", m.description || META.default.description);
 
-    // ✅ Canonical
+    // canonical (path only)
     let canonical = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
     if (!canonical) {
       canonical = document.createElement("link");
@@ -149,7 +147,7 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
     const url = `${location.origin}${location.pathname}`;
     canonical.href = url;
 
-    // ✅ Structured data (already present)
+    // basic org LD JSON
     const org = {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -170,27 +168,7 @@ function MetaTags({ meta }: { meta: { title?: string; description?: string } }) 
   return null;
 }
 
-
-/* ---------- Quote Tips (short) ---------- */
-const TIP = {
-  common: ["Company & contact name", "Destination country", "Quantity & target date"],
-} as const;
-
-function QuoteTips() {
-  const items = TIP.common;
-  return (
-    <div className="mt-6 border rounded-lg p-4 bg-white shadow-sm">
-      <h3 className="font-semibold mb-2">What to include for the fastest quote</h3>
-      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
-        {items.map((t, i) => (
-          <li key={i}>{t}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-/* ---------- Pure routing helpers (testable) ---------- */
+/* ---------- Routing helpers ---------- */
 function routeFromPathname(pathname: string): string {
   const p = (pathname || "/").replace(/\/+$/, "") || "/";
   if (p === "/") return "home";
@@ -198,11 +176,15 @@ function routeFromPathname(pathname: string): string {
   if (p === "/categories") return "categories";
   const policy = ["/privacy", "/terms", "/legal", "/faqs", "/help", "/blog"].find((x) => x === p);
   if (policy) return policy.slice(1);
+  if (/^\/product\/[^/]+$/.test(p)) return "product";
   const m = p.match(/^\/categories\/([^/]+)$/);
   if (m) return m[1];
   return "home";
 }
-
+function productSlugFromPathname(pathname: string): string | null {
+  const m = (pathname || "").match(/^\/product\/([^/]+)$/);
+  return m ? m[1] : null;
+}
 function pathForSlug(slug: string): string {
   if (slug === "home") return "/";
   if (slug === "about") return "/about";
@@ -211,7 +193,7 @@ function pathForSlug(slug: string): string {
   return `/categories/${slug}`;
 }
 
-/* ---------- Optional vertical gallery (shows placeholders if empty) ---------- */
+/* ---------- Optional vertical gallery (categories) ---------- */
 function MediaRow({ gallery }: { gallery?: string[] }) {
   const items = (gallery && gallery.length ? gallery : []).slice(0, 5);
   return (
@@ -233,25 +215,184 @@ function MediaRow({ gallery }: { gallery?: string[] }) {
   );
 }
 
+/* ---------- Products ---------- */
+type Product = {
+  slug: string;
+  title: string;
+  categoryId: "smart" | "property" | "filters" | "lights" | "gauges" | "actuators";
+  description: string;
+  images: string[]; // up to 10 (show only provided)
+  meta: { title: string; description: string; keywords?: string; tags?: string[] };
+};
+
+const PRODUCTS: Product[] = [
+  {
+    slug: "key-minder-smart-lock",
+    title: "Key Minder Smart Lock - Bluetooth & WiFi Access Control | TTLock & Tuya Compatible",
+    categoryId: "smart",
+    description: `Smart Access. Simplified.
+The Key Minder Smart Lock brings convenience, security, and modern design together, giving you full control of your property from anywhere.
+
+Designed for Airbnb hosts, property managers, offices, and smart homes, this lock connects with the TTLock and Tuya apps for seamless remote access, PIN sharing, and real-time activity logs, all from your smartphone.
+
+Built for durability, it’s waterproof and weather-resistant, making it perfect for both indoor and outdoor use. Say goodbye to lost keys and complicated check-ins — and hello to effortless, secure access management.
+
+Key Features:
+
+🔒 Remote access & PIN management via TTLock & Tuya App
+📱 Smartphone control for guests, cleaners, and maintenance teams
+🧠 Real-time activity logs and access notifications
+💦 Waterproof & durable - designed for real-world use
+🔋 Long-lasting battery life with low-power alerts
+🏠 Ideal for Airbnb, vacation rentals, offices, and smart homes
+
+Take control of your keys, anytime, anywhere.`,
+    images: [
+      "/images/products/keylock-1.webp",
+      "/images/products/keylock-2.webp",
+      "/images/products/keylock-3.webp",
+      "/images/products/keylock-4.webp",
+      "/images/products/keylock-5.webp",
+    ],
+    meta: {
+      title: "Key Minder Smart Lock | Flashfy",
+      description:
+        "Bluetooth & WiFi Smart Lock with TTLock & Tuya App — waterproof, durable, and ideal for Airbnb & property management.",
+      keywords: "smart lock, TTLock, Tuya, WiFi lock, Bluetooth lock, Airbnb smart access",
+      tags: ["smart lock", "TTLock", "Tuya", "Bluetooth", "WiFi", "Airbnb", "property"],
+    },
+  },
+  {
+    slug: "key-minder-smart-lock-property",
+    title: "Key Minder Smart Lock - Bluetooth & WiFi Access Control | TTLock & Tuya Compatible",
+    categoryId: "property",
+    description: `Smart Access. Simplified.
+The Key Minder Smart Lock brings convenience, security, and modern design together, giving you full control of your property from anywhere.
+
+Designed for Airbnb hosts, property managers, offices, and smart homes, this lock connects with the TTLock and Tuya apps for seamless remote access, PIN sharing, and real-time activity logs, all from your smartphone.
+
+Built for durability, it’s waterproof and weather-resistant, making it perfect for both indoor and outdoor use. Say goodbye to lost keys and complicated check-ins — and hello to effortless, secure access management.
+
+Key Features:
+
+🔒 Remote access & PIN management via TTLock & Tuya App
+📱 Smartphone control for guests, cleaners, and maintenance teams
+🧠 Real-time activity logs and access notifications
+💦 Waterproof & durable - designed for real-world use
+🔋 Long-lasting battery life with low-power alerts
+🏠 Ideal for Airbnb, vacation rentals, offices, and smart homes
+
+Take control of your keys, anytime, anywhere.`,
+    images: [
+      "/images/products/keylock-1.webp",
+      "/images/products/keylock-2.webp",
+      "/images/products/keylock-3.webp",
+      "/images/products/keylock-4.webp",
+      "/images/products/keylock-5.webp",
+    ],
+    meta: {
+      title: "Key Minder Smart Lock | Flashfy Property Essentials",
+      description:
+        "Smart lock for Airbnb, offices, and rentals — TTLock & Tuya compatible with real-time access management.",
+      keywords: "smart lock, TTLock, Tuya, Airbnb lock, office lock, WiFi lock",
+      tags: ["property", "smart lock", "Airbnb", "access control"],
+    },
+  },
+  {
+    slug: "flashfy-fire-blanket",
+    title: "Flashfy Fire Blanket - Quick-Release Safety Blanket for Kitchen & Home Emergencies",
+    categoryId: "property",
+    description: `Essential Safety. Instant Protection.
+The Flashfy Fire Blanket is your first line of defense against small fires — simple, fast, and effective.
+
+Designed for kitchens, rentals, and workplaces, this fire blanket instantly smothers flames caused by cooking oil, electrical sparks, or small fabric fires. Simply pull the tabs, cover the fire, and it’s out, no mess, no panic.
+
+Made from high-quality fiberglass fabric, it withstands extreme heat while remaining lightweight and easy to store. Perfect for Airbnb properties, apartments, offices, and holiday rentals, the Flashfy Fire Blanket helps you meet safety standards and gives your guests peace of mind.
+
+Key Features:
+
+🔥 Instant fire suppression - stops small fires fast
+🧯 Reusable fiberglass material resistant to high temperatures
+🏠 Ideal for kitchens, offices, Airbnb & rental properties
+🧩 Compact & wall-mountable pouch for quick access
+👨‍👩‍👧‍👦 Safe & easy to use - no training or maintenance needed
+
+Be prepared. Stay protected.`,
+    images: [
+      "/images/products/fireblanket-1.webp",
+      "/images/products/fireblanket-2.webp",
+      "/images/products/fireblanket-3.webp",
+    ],
+    meta: {
+      title: "Flashfy Fire Blanket | Flashfy",
+      description:
+        "Quick-release fire blanket for kitchen & home emergencies. Lightweight, reusable, and safe for Airbnb or office use.",
+      keywords: "fire blanket, safety blanket, kitchen fire, Airbnb safety, emergency blanket",
+      tags: ["fire blanket", "safety", "kitchen", "Airbnb", "fire safety"],
+    },
+  },
+  {
+    slug: "photoluminescent-safety-signs",
+    title: "Photoluminescent Safety Signs - Glow-in-the-Dark Exit, Fire, and First Aid Signs | Flashfy",
+    categoryId: "property",
+    description: `Safety that shines - even in the dark.
+Flashfy’s Photoluminescent Safety Signs are designed to guide and protect when visibility is low or the power goes out. These glow-in-the-dark emergency signs absorb light and automatically illuminate escape routes.
+
+Perfect for buildings, hotels, offices, Airbnb rentals, and commercial spaces. Made with high-grade photoluminescent material, they ensure compliance and visibility.
+
+Available Designs:
+🟢 Exit & Emergency Exit Signs
+🔥 Fire Extinguisher & Fire Equipment Signs
+➕ First Aid & Safety Point Signs
+🏢 Elevator & Escalator Direction Signs
+⚙️ Custom Safety Icons & Directional Arrows
+
+Key Features:
+🌙 Glow-in-the-dark visibility - no power required
+🧱 Durable PVC/aluminum construction for indoor & outdoor use
+📏 Various sizes & mounting options available
+🧩 Compliant with safety standards
+🏠 Ideal for Airbnb, offices, hotels, and public buildings
+
+When the lights go out, Flashfy signs light the way.`,
+    images: [
+      "/images/products/safetysigns-1.webp",
+      "/images/products/safetysigns-2.webp",
+      "/images/products/safetysigns-3.webp",
+      "/images/products/safetysigns-4.webp",
+    ],
+    meta: {
+      title: "Photoluminescent Safety Signs | Flashfy",
+      description:
+        "Glow-in-the-dark safety signs for exits, fire equipment, and first aid points. Durable, compliant, and ideal for properties.",
+      keywords: "photoluminescent safety signs, glow in the dark, exit sign, fire sign, first aid sign",
+      tags: ["safety signs", "photoluminescent", "exit", "fire safety", "Airbnb"],
+    },
+  },
+];
+
 /* ========================================================================== */
 
 export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [page, setPage] = useState("home");
+  const [productSlug, setProductSlug] = useState<string | null>(null);
   const [shopOpen, setShopOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<null | "success" | "error">(null);
   const [toast, setToast] = useState<string>("");
   const [prefillProduct, setPrefillProduct] = useState<string>("");
 
   useEffect(() => {
-    // migrate old hash URLs (e.g., #filters) to pretty paths
+    const syncFromPath = () => {
+      setPage(routeFromPathname(location.pathname));
+      setProductSlug(productSlugFromPathname(location.pathname));
+    };
+    // migrate old hash (#filters) to pretty path
     if (location.hash) {
       const h = (location.hash || "#home").slice(1) || "home";
-      const to = pathForSlug(h);
+      const to = h.startsWith("product:") ? `/product/${h.split(":")[1]}` : pathForSlug(h);
       history.replaceState({}, document.title, to);
     }
-
-    const syncFromPath = () => setPage(routeFromPathname(location.pathname));
     syncFromPath();
     window.addEventListener("popstate", syncFromPath);
     return () => window.removeEventListener("popstate", syncFromPath);
@@ -272,19 +413,34 @@ export default function App() {
   const blogText = asText(T.blog);
   const aboutText = asText(T.about);
 
-  // Derived per-page meta (home only here)
-  const pageMeta = page === "home" ? META.home : META.default;
+  // Derived per-page meta
+  const currentProduct = page === "product" && productSlug ? PRODUCTS.find(p => p.slug === productSlug) : undefined;
+  const pageMeta =
+    currentProduct
+      ? { title: currentProduct.meta.title, description: currentProduct.meta.description }
+      : page === "home"
+      ? META.home
+      : META.default;
 
   const handleNav = (target: string) => {
     const to = pathForSlug(target);
     if (location.pathname !== to) {
       history.pushState({}, document.title, to);
       setPage(target === "home" ? "home" : target);
+      setProductSlug(null);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setShopOpen(false);
   };
-
+  const openProduct = (slug: string) => {
+    if (location.pathname !== `/product/${slug}`) {
+      history.pushState({}, document.title, `/product/${slug}`);
+      setPage("product");
+      setProductSlug(slug);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setShopOpen(false);
+  };
   const openQuote = (prefill?: string) => {
     setPrefillProduct(prefill || "");
     setDrawerOpen(true);
@@ -299,13 +455,7 @@ export default function App() {
       img: "/images/filters.webp",
       text: filtersText,
       tipType: "filters" as const,
-      galleryUrls: [
-        "/images/filters-1.webp",
-        "/images/filters-2.webp",
-        "/images/filters-3.webp",
-        "/images/filters-4.webp",
-        "/images/filters-5.webp",
-      ],
+      galleryUrls: ["/images/filters-1.webp","/images/filters-2.webp","/images/filters-3.webp","/images/filters-4.webp","/images/filters-5.webp"],
     },
     {
       id: "lights",
@@ -314,13 +464,7 @@ export default function App() {
       img: "/images/lights.webp",
       text: lightsText,
       tipType: "lights" as const,
-      galleryUrls: [
-        "/images/lights-1.webp",
-        "/images/lights-2.webp",
-        "/images/lights-3.webp",
-        "/images/lights-4.webp",
-        "/images/lights-5.webp",
-      ],
+      galleryUrls: ["/images/lights-1.webp","/images/lights-2.webp","/images/lights-3.webp","/images/lights-4.webp","/images/lights-5.webp"],
     },
     {
       id: "gauges",
@@ -329,13 +473,7 @@ export default function App() {
       img: "/images/gauges.webp",
       text: gaugesText,
       tipType: "gauges" as const,
-      galleryUrls: [
-        "/images/gauges-1.webp",
-        "/images/gauges-2.webp",
-        "/images/gauges-3.webp",
-        "/images/gauges-4.webp",
-        "/images/gauges-5.webp",
-      ],
+      galleryUrls: ["/images/gauges-1.webp","/images/gauges-2.webp","/images/gauges-3.webp","/images/gauges-4.webp","/images/gauges-5.webp"],
     },
     {
       id: "actuators",
@@ -344,13 +482,7 @@ export default function App() {
       img: "/images/actuators.webp",
       text: actuatorsText,
       tipType: "actuators" as const,
-      galleryUrls: [
-        "/images/actuators-1.webp",
-        "/images/actuators-2.webp",
-        "/images/actuators-3.webp",
-        "/images/actuators-4.webp",
-        "/images/actuators-5.webp",
-      ],
+      galleryUrls: ["/images/actuators-1.webp","/images/actuators-2.webp","/images/actuators-3.webp","/images/actuators-4.webp","/images/actuators-5.webp"],
     },
     {
       id: "smart",
@@ -359,13 +491,7 @@ export default function App() {
       img: "/images/smart.webp",
       text: smartText,
       tipType: "smart" as const,
-      galleryUrls: [
-        "/images/smart-1.webp",
-        "/images/smart-2.webp",
-        "/images/smart-3.webp",
-        "/images/smart-4.webp",
-        "/images/smart-5.webp",
-      ],
+      galleryUrls: ["/images/smart-1.webp","/images/smart-2.webp","/images/smart-3.webp","/images/smart-4.webp","/images/smart-5.webp"],
     },
     {
       id: "property",
@@ -374,13 +500,7 @@ export default function App() {
       img: "/images/property.webp",
       text: propertyText,
       tipType: "common" as const,
-      galleryUrls: [
-        "/images/property-1.webp",
-        "/images/property-2.webp",
-        "/images/property-3.webp",
-        "/images/property-4.webp",
-        "/images/property-5.webp",
-      ],
+      galleryUrls: ["/images/property-1.webp","/images/property-2.webp","/images/property-3.webp","/images/property-4.webp","/images/property-5.webp"],
     },
   ] as const;
 
@@ -416,7 +536,7 @@ export default function App() {
           setDrawerOpen(false);
           setFormStatus(null);
           setPrefillProduct("");
-        }, 3000);
+        }, 2000);
       } else {
         setFormStatus("error");
         setToast("There was a problem sending your request.");
@@ -429,7 +549,7 @@ export default function App() {
 
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(""), 3500);
+    const t = setTimeout(() => setToast(""), 3000);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -461,12 +581,17 @@ export default function App() {
     </div>
   );
 
-  // helper: copy current URL (shareable link)
-  const copyLink = (slug: string) => {
-    const path = pathForSlug(slug);
-    const url = `${location.origin}${path}`;
+  // copy link helpers
+  const copyCategoryLink = (slug: string) => {
+    const url = `${location.origin}${pathForSlug(slug)}`;
     navigator.clipboard.writeText(url).then(() => setToast("Link copied!"));
   };
+  const copyProductLink = (slug: string) => {
+    const url = `${location.origin}/product/${slug}`;
+    navigator.clipboard.writeText(url).then(() => setToast("Link copied!"));
+  };
+
+  /* ========================= RENDER ========================= */
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -555,7 +680,7 @@ export default function App() {
         </section>
       )}
 
-      {/* Home Category cards — WIDER (2-up on desktop, big images) */}
+      {/* Home Category cards — wider */}
       {page === "home" && (
         <section className="py-12 px-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {categories.map((cat) => (
@@ -573,7 +698,7 @@ export default function App() {
               <div className="flex gap-3 mt-6">
                 <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
                 <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">Quote Now</button>
-                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }} title="Copy shareable link">
+                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyCategoryLink(cat.id); }} title="Copy shareable link">
                   <LinkIcon size={16} /> Share
                 </button>
               </div>
@@ -582,7 +707,7 @@ export default function App() {
         </section>
       )}
 
-      {/* Categories index — same wider layout */}
+      {/* Categories index — wider */}
       {page === "categories" && (
         <section className="py-12 px-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {categories.map((cat) => (
@@ -600,7 +725,7 @@ export default function App() {
               <div className="flex gap-3 mt-6">
                 <button className="bg-gray-200 text-gray-900 py-2 px-4 rounded-lg">View</button>
                 <button onClick={(e) => { e.stopPropagation(); openQuote(cat.title); }} className="bg-sky-600 text-white py-2 px-4 rounded-lg">Quote Now</button>
-                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyLink(cat.id); }} title="Copy shareable link">
+                <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={(e) => { e.stopPropagation(); copyCategoryLink(cat.id); }} title="Copy shareable link">
                   <LinkIcon size={16} /> Share
                 </button>
               </div>
@@ -609,14 +734,14 @@ export default function App() {
         </section>
       )}
 
-      {/* Category detail pages */}
+      {/* Category detail pages + product grid */}
       {categories.map(
         (cat) =>
           page === cat.id && (
             <section key={cat.id} className="p-8 max-w-6xl mx-auto">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-3xl font-bold">{cat.title}</h2>
-                <button className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={() => copyLink(cat.id)} title="Copy shareable link">
+                <button className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={() => copyCategoryLink(cat.id)} title="Copy shareable link">
                   <LinkIcon size={16} /> Copy link
                 </button>
               </div>
@@ -627,15 +752,54 @@ export default function App() {
                 </div>
                 <div className="md:col-span-2 whitespace-pre-line text-gray-700">
                   <p>{cat.text}</p>
-                  <QuoteTips />
                   <div className="mt-6 flex gap-3">
                     <button onClick={() => openQuote(cat.title)} className="bg-sky-600 text-white py-2 px-4 rounded">Request a Quote for {cat.title}</button>
                     <button onClick={() => handleNav("categories")} className="bg-gray-200 text-gray-900 py-2 px-4 rounded">Back to Categories</button>
+                  </div>
+
+                  {/* Products in this category */}
+                  <div className="mt-10">
+                    <h3 className="text-2xl font-semibold mb-4">Products</h3>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {PRODUCTS.filter(p => p.categoryId === cat.id).map(p => (
+                        <div key={p.slug} className="border rounded-2xl p-4 bg-white shadow hover:shadow-md transition">
+                          <img src={p.images[0]} alt={p.title} className="h-56 w-full object-cover rounded mb-3" />
+                          <h4 className="font-semibold text-lg line-clamp-2 mb-2">{p.title}</h4>
+                          <div className="flex gap-2">
+                            <button className="bg-gray-200 text-gray-900 py-2 px-3 rounded" onClick={() => openProduct(p.slug)}>View Product</button>
+                            <button className="bg-sky-600 text-white py-2 px-3 rounded" onClick={() => openQuote(p.title)}>Quote Now</button>
+                            <button className="ml-auto inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" onClick={() => copyProductLink(p.slug)} title="Copy product link">
+                              <LinkIcon size={16} /> Share
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                      {PRODUCTS.filter(p => p.categoryId === cat.id).length === 0 && (
+                        <p className="text-gray-600">No products yet in this category.</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
           )
+      )}
+
+      {/* Product detail page */}
+      {page === "product" && currentProduct && (
+        <ProductView
+          product={currentProduct}
+          onBack={() => history.length ? history.back() : handleNav("categories")}
+          onQuote={() => openQuote(currentProduct.title)}
+          onCopy={() => copyProductLink(currentProduct.slug)}
+        />
+      )}
+      {page === "product" && !currentProduct && (
+        <section className="p-8 max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-2">Product not found</h2>
+          <p className="text-gray-600 mb-4">This product may have been moved or removed.</p>
+          <button onClick={() => handleNav("categories")} className="bg-gray-200 text-gray-900 py-2 px-4 rounded">Back to Categories</button>
+        </section>
       )}
 
       {/* About page */}
@@ -760,45 +924,100 @@ export default function App() {
   );
 }
 
+/* ---------- Product View (carousel) ---------- */
+function ProductView({
+  product,
+  onBack,
+  onQuote,
+  onCopy,
+}: {
+  product: Product;
+  onBack: () => void;
+  onQuote: () => void;
+  onCopy: () => void;
+}) {
+  const imgs = (product.images || []).slice(0, 10);
+  const [idx, setIdx] = useState(0);
+  const prev = () => setIdx((i) => (i - 1 + imgs.length) % imgs.length);
+  const next = () => setIdx((i) => (i + 1) % imgs.length);
+  const set = (i: number) => setIdx(i);
+
+  return (
+    <section className="p-8 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between mb-4">
+        <button onClick={onBack} className="text-sm text-gray-600 hover:text-gray-900">← Back</button>
+        <button onClick={onCopy} className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900" title="Copy product link">
+          <LinkIcon size={16} /> Copy link
+        </button>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8 items-start">
+        {/* Left: big image + arrows + thumbnails */}
+        <div className="w-full">
+          <div className="relative rounded-2xl overflow-hidden border bg-white">
+            {imgs.length > 0 ? (
+              <>
+                <img src={imgs[idx]} alt={`${product.title} image ${idx + 1}`} className="w-full h-96 object-cover" />
+                {imgs.length > 1 && (
+                  <>
+                    <button onClick={prev} aria-label="Previous image" className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow">
+                      <ChevronLeft />
+                    </button>
+                    <button onClick={next} aria-label="Next image" className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow">
+                      <ChevronRight />
+                    </button>
+                  </>
+                )}
+              </>
+            ) : (
+              <div className="w-full h-96 bg-gray-100 flex items-center justify-center text-gray-500">No image</div>
+            )}
+          </div>
+          {/* Thumbnails */}
+          {imgs.length > 1 && (
+            <div className="mt-3 grid grid-cols-5 gap-2">
+              {imgs.map((s, i) => (
+                <button key={i} onClick={() => set(i)} className={`border rounded overflow-hidden ${i === idx ? "ring-2 ring-sky-500" : ""}`}>
+                  <img src={s} alt={`Thumb ${i + 1}`} className="w-full h-20 object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right: title + description + CTA */}
+        <div>
+          <h1 className="text-3xl font-bold mb-3">{product.title}</h1>
+          <p className="whitespace-pre-line text-gray-700 mb-6">{product.description}</p>
+          <div className="flex gap-3">
+            <button onClick={onQuote} className="bg-sky-600 text-white py-2 px-4 rounded">Request a Quote</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Self-tests (console) ---------- */
 (function runSelfTests() {
   try {
-    // content keys present (existing test — do not change)
-    const must = ["filters", "gauges", "lights", "actuators", "smart", "property", "privacy", "terms", "legal", "faqs", "help", "blog", "about"];
+    const must = ["filters","gauges","lights","actuators","smart","property","privacy","terms","legal","faqs","help","blog","about"];
     const miss = must.filter((k) => !(k in (T as any)));
     if (miss.length) console.warn("[SelfTest] Missing blocks:", miss);
 
-    // NEW: routing map tests
     const routeCases: Array<[string, string]> = [
-      ["/", "home"],
-      ["/about", "about"],
-      ["/categories", "categories"],
-      ["/categories/lights", "lights"],
-      ["/privacy", "privacy"],
-      ["/terms", "terms"],
-      ["/legal", "legal"],
-      ["/faqs", "faqs"],
-      ["/help", "help"],
-      ["/blog", "blog"],
-      ["/unknown", "home"],
+      ["/", "home"], ["/about", "about"], ["/categories", "categories"],
+      ["/categories/lights", "lights"], ["/privacy", "privacy"], ["/terms", "terms"],
+      ["/legal", "legal"], ["/faqs", "faqs"], ["/help", "help"], ["/blog", "blog"],
+      ["/product/key-minder-smart-lock", "product"], ["/unknown", "home"],
     ];
     routeCases.forEach(([path, expect]) => {
       const got = routeFromPathname(path);
       if (got !== expect) console.error(`[SelfTest] routeFromPathname failed: ${path} -> ${got} (expected ${expect})`);
     });
 
-    // NEW: path builder tests
-    const pathCases: Array<[string, string]> = [
-      ["home", "/"],
-      ["about", "/about"],
-      ["categories", "/categories"],
-      ["lights", "/categories/lights"],
-      ["privacy", "/privacy"],
-    ];
-    pathCases.forEach(([slug, expect]) => {
-      const got = pathForSlug(slug);
-      if (got !== expect) console.error(`[SelfTest] pathForSlug failed: ${slug} -> ${got} (expected ${expect})`);
-    });
+    const p = productSlugFromPathname("/product/flashfy-fire-blanket");
+    if (p !== "flashfy-fire-blanket") console.error("[SelfTest] productSlugFromPathname failed");
   } catch (e) {
     console.warn("[SelfTest] Exception:", e);
   }
