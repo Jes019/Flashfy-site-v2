@@ -74,7 +74,11 @@ const T = {
     "Duties & Taxes: depend on route/incoterm (e.g., DAP or DDP if offered).",
     "Returns & Warranty: eligibility depends on product type and supplier policy; custom/made-to-order items are generally non-returnable once in production. Manufacturer warranties apply where available.",
     "Liability: to the fullest extent permitted by law, indirect or consequential losses are excluded; aggregate liability is capped at the order amount for the specific claim period. Governing law: Malta.",
-  ],
+    " Payment Processing & Beneficiary Flashfy operates as a sole trader.",
+    "All payments made through this website are received by the legal beneficiary authorised to operate Flashfy.",
+   " Payment Beneficiary Name: Jesmond Borg – Flashfy",
+    "Payments may be processed via third-party payment providers (including but not limited to Payoneer, Stripe, or similar platforms). Flashfy does not store or process payment card or banking details directly.",
+],
   legal: [
     "Legal Notice & Compliance",
     "Status: Flashfy coordinates procurement and logistics with third-party suppliers; we are not the manufacturer. Technical information is guidance only.",
