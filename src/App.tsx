@@ -4,7 +4,7 @@ import { Menu, X, ChevronDown, CheckCircle, Link as LinkIcon, ChevronLeft, Chevr
 /*******************
  * Flashfy — App + Product Pages (carousel + SEO + pretty URLs)
  *******************/
-// BUILD_FORCE_2026_01_08
+// BUILD_FORCE_2026_01_09
 
 /* ---------- Content blocks (short) ---------- */
 const T = {
