@@ -70,7 +70,6 @@ const T = {
   ],
   terms: [
     "Terms & Conditions",
-     ***Test Beneficiary Line***
     "Quotes are limited offers and subject to supplier availability and validation. An order forms when we confirm acceptance in writing and (if required) receive payment/PO.",
     "Shipping & Delivery: ETAs refer to time-to-dispatch from the manufacturer; shipping/transit time is additional. We will list route options and realistic ETAs in your quote.",
     "Duties & Taxes: depend on route/incoterm (e.g., DAP or DDP if offered).",
