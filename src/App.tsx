@@ -881,7 +881,7 @@ export default function App() {
               </form>
               <p className="text-xs text-gray-500 mt-3">Your data is used only to prepare this quote — never shared for marketing.</p>
               <div className="mt-4">
-                <QuoteTips />
+                {/* <QuoteTips /> */}
               </div>
             </div>
           </div>
